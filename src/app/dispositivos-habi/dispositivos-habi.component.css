@@ -1,0 +1,11 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+table {
+    border-collapse: separate;
+    border-spacing: 8px;
+    text-align:center;
+    font-family: system-ui;
+    font-weight: bold;
+    border-radius: 5%;
+    border-color: #ffffff;
+}

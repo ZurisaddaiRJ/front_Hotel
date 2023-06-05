@@ -1,0 +1,14 @@
+<h2>Rack Hotelero</h2>
+<div className="table" align="center">
+    <table border="2px" style="background-color:#d1c767">
+        <tr *ngFor="let piso of pisos">
+            <td>Piso {{ piso.numero }}</td>
+            <td *ngFor="let habitacion of piso.habitaciones">
+                <P>Habitacion</P>
+                <nav>
+                    <a class="button" routerLink="/dispositivos-habi">Dispositivos</a> |
+                </nav>{{ habitacion.numero }}
+            </td>
+        </tr>
+    </table>
+</div>
