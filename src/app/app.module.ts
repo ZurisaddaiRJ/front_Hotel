@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,6 +10,16 @@ import { EstadoHabitacionesComponent } from './estado-habitaciones/estado-habita
 import { DispositivosHabiComponent } from './dispositivos-habi/dispositivos-habi.component';
 import { FormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { HabitacionListComponent } from './habitacion-list/habitacion-list.component';
+import { HabitacionService } from './habitacion.service';
+
+import { Routes, RouterModule } from '@angular/router';
+import { DispositivosComponent } from './dispositivos/dispositivos.component';
+
+const routes: Routes = [
+  // Otras rutas...
+  { path: 'dispositivos/:habitacionNumero', component: DispositivosComponent }
+];
 
 @NgModule({
   declarations: [
@@ -16,6 +27,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     HabitacionesComponent,
     EstadoHabitacionesComponent,
     DispositivosHabiComponent,
+    HabitacionListComponent,
+    DispositivosComponent,
   ],
   imports: [
 
@@ -24,9 +37,12 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     BrowserAnimationsModule,
     FormsModule,
     MatSlideToggleModule,
+    HttpClientModule
     
   ],
-  providers: [],
+  providers: [
+    HabitacionService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

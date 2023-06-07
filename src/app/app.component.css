@@ -1,6 +1,22 @@
 .body {
     background-color: #ffdd90;
-    background-image: url("hotel.jpg");
     background-repeat: no-repeat;
     background-size: cover;
   }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    border-radius: 50%;
+    margin-right: 5px;
+  }
+  
+  .green-dot {
+    background-color: green;
+  }
+  
+  .gray-dot {
+    background-color: gray;
+  }
+  

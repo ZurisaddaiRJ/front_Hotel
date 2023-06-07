@@ -1,0 +1,7 @@
+<h2>Dispositivos de la Habitación {{ habitacionNumero }}</h2>
+
+<ul>
+  <li *ngFor="let dispositivo of dispositivos">
+    {{ dispositivo.tipo }} - {{ dispositivo.ip }}
+  </li>
+</ul>
