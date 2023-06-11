@@ -1,16 +1,14 @@
-<h2>Listado de Habitaciones</h2>
-<ul>
-  <li *ngFor="let habitacion of habitaciones">
-    <h1>Habitacion: {{ habitacion.numero }}</h1>
-    <h2>Dispositivos de la Habitación {{ habitacion.numero }}</h2>
+<div class="fondo">
+  <h2 class="title">Rack de Habitaciones</h2>
+  <div class="contenedor-hab">
     <ul>
-      <li *ngFor="let dispositivo of habitacion.dispositivos">
-        <h3>Tipo:</h3>
-        <h4> {{ dispositivo.tipo }}</h4>
-        <span [class]="dispositivo.estadoDispositivo === 1 ? 'dot green-dot' : 'dot gray-dot'"></span>
-        {{ dispositivo.estadoDispositivo === 1 ? 'Encendido' : 'Apagado' }}
-        <button>Apagar</button>
-      </li>
+        <li class="list-hab" *ngFor="let habitacion of habitaciones">
+          <div class="habitacion">
+            <h4>Habitación: {{ habitacion.numero }}</h4>
+            <button type="button" class="btn btn-primary"
+              (click)="getDispositivos(habitacion.numero)">Dispositivos</button>
+          </div>
+        </li>
     </ul>
-  </li>
-</ul>
+  </div>
+</div>

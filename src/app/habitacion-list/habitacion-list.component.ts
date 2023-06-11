@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Habitacion } from '../habitacion.model';
 import { HabitacionService } from '../habitacion.service';
+import { ApiDispositivosService } from '../api-dispositivos.service';
 import { Router } from '@angular/router';
+import { DispositivoResponse, Dispositivo } from '../dispositivo.model';
 
 
 @Component({
@@ -11,14 +13,18 @@ import { Router } from '@angular/router';
 })
 export class HabitacionListComponent implements OnInit {
   habitaciones: Habitacion[] = [];
-  constructor(private habitacionService: HabitacionService, private router: Router) { }
+  dispositivos: Dispositivo[] = [];
+
+  constructor(private habitacionService: HabitacionService,
+    private router: Router,
+    private dispositivoService: ApiDispositivosService) { }
 
   ngOnInit(): void {
     this.getHabitaciones();
   }
 
   getHabitaciones() {
-    this.habitacionService.getHabitaciones().subscribe(
+    this.habitacionService.getHabitacionesList().subscribe(
       habitaciones => {
         this.habitaciones = habitaciones.content;
       },
@@ -39,8 +45,20 @@ export class HabitacionListComponent implements OnInit {
     }
   }
 
-  verDispositivos(habitacion: any) {
-    // Navegar a la página de dispositivos y pasar el objeto de habitación como parámetro
-    this.router.navigate(['/dispositivos', habitacion.numero]);
+  getDispositivos(numeroHabitacion: number) {
+    this.dispositivoService.getDispositivos(numeroHabitacion).subscribe(
+      dispositivos => {
+        if (Array.isArray(dispositivos)) {
+          this.dispositivos = dispositivos;
+        } else {
+          this.dispositivos = [dispositivos];
+        }
+        console.log(dispositivos);
+      },
+      error => {
+        console.log(error);
+        this.router.navigate(['/dispositivos']);
+      }
+    );
   }
 }

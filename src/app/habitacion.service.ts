@@ -11,7 +11,13 @@ export class HabitacionService {
 
   constructor(private http: HttpClient) { }
 
-  getHabitaciones(): Observable<any> {
+  getHabitacionesList(): Observable<any> {
+    console.log(JSON.stringify(this.http.get<any>(this.apiUrl)));
     return this.http.get<any>(this.apiUrl);
+  }
+
+  getHabitacionId(numero: number): Observable<any> {
+    console.log(JSON.stringify(this.http.get<any>(`${this.apiUrl}/${numero}`)));
+    return this.http.get<any>(`${this.apiUrl}/${numero}`);
   }
 }
