@@ -14,7 +14,7 @@ export class ApiDispositivosService {
   constructor(private http: HttpClient) { }
 
   getDispositivos(numeroHabitacion: number): Observable<Dispositivo[]> {
-    const url = `${this.apiUrlHabitaciones}/${numeroHabitacion}/${this.dispositivos}`;
+    const url = `${this.apiUrlHabitaciones}/${numeroHabitacion}`;
     return this.http.get<Dispositivo[]>(url);
   }
 

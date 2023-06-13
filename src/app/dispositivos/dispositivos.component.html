@@ -1,17 +1,13 @@
 <div class="fondo">
+  <div class="contenedor-hab"></div>
   <h2 class="title">Dispositivos de la Habitación {{ habitacionNumero }}</h2>
-  <app-dispositivos></app-dispositivos>
-  <div class="contenedor-hab">
-    <ul>
-      <li class="list-hab" *ngFor="let dispositivo of dispositivos">
-        <div class="habitacion">
-          <h3>Tipo:</h3>
-          <h3> {{ dispositivo.tipo}}</h3>
-          <span [class]="dispositivo.estadoDispositivo === 1 ? 'dot green-dot' : 'dot gray-dot'"></span>
-          {{ dispositivo.estadoDispositivo === 1 ? 'Encendido' : 'Apagado' }}
-          <button>Apagar</button>
-        </div>
-      </li>
-    </ul>
+  <div *ngFor="let dispositivo of dispositivosObtenidos?.dispositivos">
+    <div class="habitacion">
+      <h3>Tipo:</h3>
+      <h3> {{ dispositivo?.tipo}}</h3>
+      <span [class]="dispositivo?.estadoDispositivo === 1 ? 'dot green-dot' : 'dot gray-dot'"></span>
+      {{ dispositivo?.estadoDispositivo === 1 ? 'Encendido' : 'Apagado' }}
+      <button>Apagar</button>
+    </div>
   </div>
 </div>

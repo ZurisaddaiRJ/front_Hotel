@@ -1,14 +1,14 @@
 <div class="fondo">
-  <h2 class="title">Rack de Habitaciones</h2>
+  <h2 class="title">Rack de Habitaciones</h2>  
   <div class="contenedor-hab">
     <ul>
-        <li class="list-hab" *ngFor="let habitacion of habitaciones">
-          <div class="habitacion">
-            <h4>Habitación: {{ habitacion.numero }}</h4>
-            <button type="button" class="btn btn-primary"
-              (click)="getDispositivos(habitacion.numero)">Dispositivos</button>
-          </div>
-        </li>
+      <li class="list-hab" *ngFor="let habitacion of habitaciones">
+        <div class="habitacion">
+          <h4>Habitación: {{ habitacion.numero }}</h4>
+          <button type="button" class="btn btn-primary" (click)="getDispositivos(habitacion.numero)" routerLink="/dispositivo/:{habitacion.numero}">Dispositivos</button>
+        </div>
+        <router-outlet></router-outlet>
+      </li>
     </ul>
   </div>
 </div>

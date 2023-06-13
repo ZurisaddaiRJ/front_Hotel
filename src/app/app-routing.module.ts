@@ -4,13 +4,13 @@ import { HabitacionListComponent } from './habitacion-list/habitacion-list.compo
 import { DispositivosComponent } from './dispositivos/dispositivos.component';
 
 const routes: Routes = [
-  { path: 'dispositivos', component: DispositivosComponent },
   { path: 'habitaciones-list', component: HabitacionListComponent},
-  { path: 'dispositivos/:numero', component: DispositivosComponent}
+  { path: 'dispositivo/:numeroHabitacion', component: DispositivosComponent},
+
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule { }

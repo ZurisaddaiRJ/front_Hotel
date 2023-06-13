@@ -67,7 +67,18 @@
   height:100vh;
 }
 
-html {
-  display: flex;
-  flex-direction:column;
+.dot {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.green-dot {
+  background-color: green;
+}
+
+.gray-dot {
+  background-color: gray;
 }

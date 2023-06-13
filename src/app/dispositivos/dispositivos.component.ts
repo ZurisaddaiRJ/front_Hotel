@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiDispositivosService } from '../api-dispositivos.service';
 import { Dispositivo } from '../dispositivo.model';
-import { DispositivoResponse } from '../dispositivo.model';
+import { Habitacion } from '../habitacion.model';
 
 @Component({
   selector: 'app-dispositivos',
@@ -10,30 +10,40 @@ import { DispositivoResponse } from '../dispositivo.model';
   styleUrls: ['./dispositivos.component.css']
 })
 export class DispositivosComponent implements OnInit {
-  
+  habitacion!: any;
   habitacionNumero!: number;
-  dispositivos: Dispositivo[] = [];
+  dispositivosObtenidos: any;
 
   constructor(
-    private dispositivoService: ApiDispositivosService, 
+    private dispositivoService: ApiDispositivosService,
+    private router: Router, 
     private route: ActivatedRoute) { }
 
-  ngOnInit() {
+  ngOnInit(){
     this.route.params.subscribe(params => {
-      this.habitacionNumero = +params['numero'];
+      const numeroHabitacion = +params['numeroHabitacion'];
       // Obtener los dispositivos correspondientes a la habitación utilizando this.habitacionNumero
       // Asignar los dispositivos a la variable this.dispositivos
-      this.getDispositivos();
+      if (!isNaN(numeroHabitacion)) {
+        this.habitacionNumero = numeroHabitacion;
+        this.getDispositivos();
+      }
     });
+    /*this.route.params.subscribe(params => {
+      this.habitacionNumero = +params['habitacionNumero']
+    });*/
+
   }
 
   getDispositivos() {
     this.dispositivoService.getDispositivos(this.habitacionNumero).subscribe(
       dispositivos=> {
         if (Array.isArray(dispositivos)) {
-          this.dispositivos = dispositivos;
+          this.dispositivosObtenidos = dispositivos;
+          console.log(this.dispositivosObtenidos);
         } else {
-          this.dispositivos = [dispositivos];
+          this.dispositivosObtenidos = [dispositivos];
+          console.log(this.dispositivosObtenidos);
         }
       },
       error => {

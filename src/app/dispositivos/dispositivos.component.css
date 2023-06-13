@@ -48,11 +48,6 @@
     background-size: cover;
     height:100vh;
   }
-  
-  html {
-    display: flex;
-    flex-direction:column;
-  }
 
   .dot {
     width: 10px;
