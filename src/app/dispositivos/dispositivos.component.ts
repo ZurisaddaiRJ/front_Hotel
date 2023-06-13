@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiDispositivosService } from '../api-dispositivos.service';
-import { Dispositivo } from '../dispositivo.model';
-import { Habitacion } from '../habitacion.model';
+import { Dispositivo } from '../habitacion.model';
+import { HabitacionService } from '../habitacion.service';
 
 @Component({
   selector: 'app-dispositivos',
@@ -12,14 +12,15 @@ import { Habitacion } from '../habitacion.model';
 export class DispositivosComponent implements OnInit {
   habitacion!: any;
   habitacionNumero!: number;
-  dispositivosObtenidos: any;
+  dispositivosObtenidos!: Dispositivo[];
 
   constructor(
     private dispositivoService: ApiDispositivosService,
-    private router: Router, 
+    private habitacionService: HabitacionService,
+    private router: Router,
     private route: ActivatedRoute) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.route.params.subscribe(params => {
       const numeroHabitacion = +params['numeroHabitacion'];
       // Obtener los dispositivos correspondientes a la habitación utilizando this.habitacionNumero
@@ -36,30 +37,46 @@ export class DispositivosComponent implements OnInit {
   }
 
   getDispositivos() {
-    this.dispositivoService.getDispositivos(this.habitacionNumero).subscribe(
+    /*this.dispositivoService.getDispositivos(this.habitacionNumero).subscribe(
       dispositivos=> {
+        console.log('Dispositivos obtenidos:', dispositivos);
         if (Array.isArray(dispositivos)) {
           this.dispositivosObtenidos = dispositivos;
-          console.log(this.dispositivosObtenidos);
         } else {
           this.dispositivosObtenidos = [dispositivos];
-          console.log(this.dispositivosObtenidos);
         }
       },
       error => {
-        console.log(error);
+        console.log('Error:', error);
+      }
+    );*/
+    this.habitacionService.getDispositivos(this.habitacionNumero).subscribe(
+      dispositivos => {
+        console.log('Dispositivos obtenidos:', dispositivos);
+        if (Array.isArray(dispositivos)) {
+          this.dispositivosObtenidos = dispositivos;
+        } else {
+          this.dispositivosObtenidos = [dispositivos];
+        }
+      },
+      error => {
+        console.log('Error:', error);
       }
     );
   }
 
   getTipoDispositivo(tipo: string): string {
     console.log(tipo);
-    if (tipo === 'TV') {
-      return 'Televisor';
-    } else if (tipo === 'LUZ') {
+    const tipoLowerCase = tipo.toLowerCase();
+
+    if (tipoLowerCase === 'Telvision') {
+      return 'Television';
+    } else if (tipoLowerCase === 'Aire Acondicionado') {
+      return 'Aire acondicionado';
+    } else if (tipoLowerCase === 'Luz') {
       return 'Luces';
     } else {
-      return 'Aire Acondicionado';
+      return 'Desconocido';
     }
   }
 

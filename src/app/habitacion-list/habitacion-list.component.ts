@@ -21,10 +21,10 @@ export class HabitacionListComponent implements OnInit {
     private dispositivoService: ApiDispositivosService) { }
 
   ngOnInit(): void {
-    this.habitacionService.getHabitacionesList()
+    /*this.habitacionService.getHabitacionesList()
     .subscribe(data => {
       this.habitaciones = data.habitaciones; // Asegúrate de ajustar esta línea según la estructura de tu objeto de respuesta
-    });
+    });*/
     this.getHabitaciones();
   }
 
