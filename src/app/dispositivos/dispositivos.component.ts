@@ -4,6 +4,7 @@ import { ApiDispositivosService } from '../api-dispositivos.service';
 import { Dispositivo } from '../habitacion.model';
 import { HabitacionService } from '../habitacion.service';
 import { HttpClient } from '@angular/common/http';
+import { Subscription, interval } from 'rxjs';
 
 @Component({
   selector: 'app-dispositivos',
@@ -14,6 +15,7 @@ export class DispositivosComponent implements OnInit {
   habitacion!: any;
   habitacionNumero!: number;
   dispositivosObtenidos!: Dispositivo[];
+  private dispositivosSubscription: Subscription | undefined;
 
   constructor(
     private http: HttpClient,
@@ -30,6 +32,7 @@ export class DispositivosComponent implements OnInit {
       if (!isNaN(numeroHabitacion)) {
         this.habitacionNumero = numeroHabitacion;
         this.getDispositivos();
+        this.startPolling();
       }
     });
     /*this.route.params.subscribe(params => {
@@ -38,20 +41,11 @@ export class DispositivosComponent implements OnInit {
 
   }
 
+  ngOnDestroy() {
+    this.stopPolling();
+  }
+
   getDispositivos() {
-    /*this.dispositivoService.getDispositivos(this.habitacionNumero).subscribe(
-      dispositivos=> {
-        console.log('Dispositivos obtenidos:', dispositivos);
-        if (Array.isArray(dispositivos)) {
-          this.dispositivosObtenidos = dispositivos;
-        } else {
-          this.dispositivosObtenidos = [dispositivos];
-        }
-      },
-      error => {
-        console.log('Error:', error);
-      }
-    );*/
     this.habitacionService.getDispositivos(this.habitacionNumero).subscribe(
       dispositivos => {
         console.log('Dispositivos obtenidos:', dispositivos);
@@ -65,6 +59,18 @@ export class DispositivosComponent implements OnInit {
         console.log('Error:', error);
       }
     );
+  }
+
+  startPolling() {
+    this.dispositivosSubscription = interval(5000).subscribe(() => {
+      this.getDispositivos();
+    });
+  }
+
+  stopPolling() {
+    if (this.dispositivosSubscription) {
+      this.dispositivosSubscription.unsubscribe();
+    }
   }
 
   getTipoDispositivo(tipo: string): string {

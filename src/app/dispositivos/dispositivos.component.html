@@ -6,7 +6,7 @@
         <h3>Tipo: {{dispositivo.tipo}}</h3>
         <span [class]="dispositivo.estadoDispositivo === 1 ? 'dot green-dot' : 'dot gray-dot'"></span>
         {{ dispositivo.estadoDispositivo === 1 ? 'Encendido' : 'Apagado' }}
-        <button (click)="enviarDatos({dispositivo}, {habitacionNumero})">Apagar</button>
+        <button (click)="enviarDatos({dispositivo}, {habitacionNumero})" *ngIf="dispositivo.tipo !== 'sensor'" >Apagar</button>
       </div>
     </div>
     <div class="habitacion" *ngIf="!dispositivosObtenidos || dispositivosObtenidos.length === 0">
