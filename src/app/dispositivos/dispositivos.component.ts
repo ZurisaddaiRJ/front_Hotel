@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ApiDispositivosService } from '../api-dispositivos.service';
 import { Dispositivo } from '../habitacion.model';
 import { HabitacionService } from '../habitacion.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-dispositivos',
@@ -15,6 +16,7 @@ export class DispositivosComponent implements OnInit {
   dispositivosObtenidos!: Dispositivo[];
 
   constructor(
+    private http: HttpClient,
     private dispositivoService: ApiDispositivosService,
     private habitacionService: HabitacionService,
     private router: Router,
@@ -89,6 +91,20 @@ export class DispositivosComponent implements OnInit {
     } else {
       return 'red-button';
     }
+  }
+
+  //boton para apagar dispositivos
+  enviarDatos(dispositivo: any, n:any) {
+    console.log(n.habitacionNumero);
+    const datos = {
+      dispositivo: dispositivo,
+      numero: n,
+    };
+
+    this.http.post('http://localhost:3001/enviar', datos)
+      .subscribe((response) => {
+        console.log('Datos enviados al broker:', response);
+      });
   }
 
 }
